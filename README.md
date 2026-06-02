@@ -1,37 +1,100 @@
 # Suicide Rates in Singapore: A Data Analysis
 
-This project was conducted to identify the major social determinants contributing to the increasing suicide rates in Singapore and to evaluate how these determinants interact with interventions by the Samaritans of Singapore (SOS). Utilizing a combination of data preparation, exploratory data analysis (EDA), and natural language processing (NLP), the study delved into datasets encompassing suicide rates, psychiatric hospital admissions, long-term unemployment, and public sentiment towards SOS interventions.
+An exploratory data analysis (EDA) and natural language processing (NLP) study investigating 
+the major social determinants contributing to rising suicide rates in Singapore, and how 
+those determinants interact with interventions by the Samaritans of Singapore (SOS).
 
-## Technologies
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white) ![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white) ![NLP](https://img.shields.io/badge/NLP-3776AB?style=for-the-badge&logo=natural-language-processing&logoColor=white) &nbsp; ![Maintenance](http://unmaintained.tech/badge.svg)
+This project was submitted for CM2015: Programming with Data.
 
-## Insights
-The project revealed significant correlations between suicide rates and various social determinants such as employment status and public health initiatives. Analysis through NLP of public forums highlighted prevalent themes of mental health needs and support within the community, underlining the critical role of accessible mental health services and societal support systems in mitigating suicide risks.
+---
 
-## Process
-The analysis embarked on a journey of data collection, cleaning, and integration, employing Python for data manipulation and analysis. A key phase involved exploratory data analysis (EDA) to identify trends and patterns within the data, supplemented by NLP techniques to extract and analyze public sentiment towards SOS interventions from online discussions. This multidisciplinary approach enabled a deeper understanding of the intricate relationship between social factors and suicide rates in Singapore.
+## Tech Stack
 
-## Challenges
-- **Data Sensitivity and Ethics:** Handling sensitive data on suicide required careful consideration of ethical implications, ensuring anonymity and respect for individuals.
-- **Interdisciplinary Analysis Complexity:** Integrating insights from various fields such as public health, psychology, and data science presented a complex but enriching challenge.
-- **Technical Learning Curve:** The project demanded advanced technical skills in data analysis and natural language processing, necessitating a steep learning curve.
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
+![NLTK](https://img.shields.io/badge/NLTK-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge&logo=jupyter&logoColor=white)
+![Maintenance](http://unmaintained.tech/badge.svg)
 
-## How to Use
-To explore the analysis and findings of this project, the datasets and scripts are available for review. Note that the analysis respects privacy and ethical guidelines, with anonymized data used throughout.
+---
 
-## How to use
-To clone and run this application, you will need Git:
-```
-$ git clone https://github.com/mlemxy/Suicide-Analysis
+## Research Question
 
-# create virtual env
+What are the major social determinants contributing to the increasing suicide rates in 
+Singapore, and how do these determinants interact with SOS interventions?
+
+---
+
+## Datasets
+
+| # | Dataset | Format | Source |
+|---|---|---|---|
+| 1 | Suicide Rates Overview (1985-2021) | CSV | Kaggle (compiled from WHO, World Bank, UNDP) |
+| 2 | Hospital Admission Rate by Age and Sex | CSV | Ministry of Health (MOH), data.gov.sg |
+| 3 | Long-Term Unemployed Residents, Annual | CSV | Ministry of Manpower (MOM), data.gov.sg |
+| 4 | SOS Annual Reports (2016-2021) | PDF | Samaritans of Singapore (SOS) |
+| 5 | Public Opinion on SOS | Web (Reddit API via PRAW) | r/singapore |
+
+---
+
+## Methodology
+
+**Data Preparation**
+Datasets were filtered to Singapore-specific records, cleaned for missing values, and merged 
+on a shared time axis (2016-2021). Feature engineering included age group remapping, comma 
+removal for numeric parsing, and mean imputation for missing values.
+
+**Exploratory Data Analysis (EDA)**
+Correlation analysis was performed across variables including GDP, HDI, long-term 
+unemployment, psychiatric hospital admissions, SOS community outreach activity, and calls 
+with suicide risk. Seaborn heatmaps and distribution plots were used to surface patterns 
+across demographic groups (age, sex).
+
+**Natural Language Processing (NLP)**
+Reddit posts from r/singapore were scraped using PRAW (Python Reddit API Wrapper). Text 
+was tokenized, lemmatized, and filtered of stopwords using NLTK, then visualized as a 
+word cloud to surface dominant themes in public sentiment toward SOS.
+
+---
+
+## Key Findings
+
+**Unemployment** showed a high positive correlation with suicide risk calls, suggesting 
+that economic stress is a significant driver of mental health deterioration in Singapore.
+
+**Community outreach** by SOS correlated with rising suicide rates, interpreted as a 
+reactive relationship: as rates climbed, SOS expanded its outreach efforts including 
+crisis hotlines, counseling, and psychiatric referrals to institutions such as IMH.
+
+**Psychiatric hospital admissions** showed a negative correlation with suicide rates, 
+suggesting that access to structured mental health care may be associated with reduced 
+suicide risk.
+
+**Public sentiment analysis** of Reddit discussions revealed that mental health, community 
+support, and personal crises (unemployment, relationships) were the dominant themes in 
+conversations relating to SOS, consistent with the quantitative findings.
+
+---
+
+## Getting Started
+
+**Prerequisites:** Python 3.x, Jupyter Notebook, Git
+
+```bash
+# Clone the repository
+git clone https://github.com/mlemxy/suicide-analysis
+
+# Create and activate a virtual environment
 py -m venv .venv
 .venv\scripts\activate
 
+# Install dependencies
+pip install -r requirements.txt
 
-# install dependencies
-$ pip install -r requirements.txt
+# Add your Reddit API credentials in .env
 
-# run the application
-$ jupyter notebook suicide_analysis.ipynb
+# Launch the notebook
+jupyter notebook suicide_rate.ipynb
 ```
+
+> Note: Reddit data collection via PRAW requires a Reddit API key stored in `.env`.
